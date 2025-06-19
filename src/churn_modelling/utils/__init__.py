@@ -1,7 +1,7 @@
 from churn_modelling.exception import CustomException
+import sys, yaml, os, json, pickle, sqlite3
 from pathlib import Path
 from box import ConfigBox
-import sys, yaml, os, json
 
 
 
@@ -81,4 +81,34 @@ def load_json(path:str)->dict:
             return json_object
     except Exception as e:
         raise CustomException(e, sys)
+    
+def save_pickle(path:str, object:object)-> None:
+    """saves the object into .h5 file
+
+    Args:
+        path (str): path to save the object
+        object (object): object to be saved
+    """
+    try:
+        with open(Path(path), "wb") as file_obj:
+            pickle.dump(object, file_obj)
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def load_pickle(path:str)-> object:
+    """load the object present at path with pickle and return
+
+    Args:
+        path (str): path for the object
+
+    Returns:
+        object: object at path will be returned
+    """
+    try:
+        with open(Path(path), "rb") as file_obj:
+            obj = pickle.load(file_obj)
+            return obj
+    except Exception as e:
+        raise CustomException(e, sys)
+
     

@@ -3,7 +3,6 @@
 # Folders
 .venv/
 __pycache__/
-notebook/
 logs/
 artifacts/
 

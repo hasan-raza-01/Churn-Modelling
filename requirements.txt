@@ -5,3 +5,7 @@ mlflow
 dagshub
 bentoml
 ipykernel
+numpy 
+pandas 
+matplotlib 
+seaborn 

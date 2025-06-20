@@ -128,7 +128,7 @@ if __name__ == "__main__":
         },
         file_path,
         'projectsbucket01', 
-        'ChurnModelling'
+        'ChurnModelling-db'
     )
     obj.main()
 

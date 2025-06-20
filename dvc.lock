@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: face010a2faf73c26bedf13e0e471162
-      size: 264
+      md5: 854268396567f491ba00ad54fe6a76a3
+      size: 467
     - path: src/churn_modelling/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 37bc25538791564c536286c485a12bdc
@@ -14,6 +14,31 @@ stages:
     outs:
     - path: artifacts/data/ingestion
       hash: md5
-      md5: 48a4d0a6c77dd291651ca485f305594e.dir
-      size: 2769764
+      md5: 42e3697435376fb0633c84d7d719da31.dir
+      size: 1385092
+      nfiles: 3
+  data_validation:
+    cmd: uv run src/churn_modelling/pipeline/stage_02_data_validation.py
+    deps:
+    - path: artifacts/data/ingestion/ingested/test.csv
+      hash: md5
+      md5: bc94b6e09b42ad43e88dd8c807c965ca
+      size: 228707
+    - path: artifacts/data/ingestion/ingested/train.csv
+      hash: md5
+      md5: 0bb00498a822ad68cf6200a6e5b62931
+      size: 463909
+    - path: config/config.yaml
+      hash: md5
+      md5: 854268396567f491ba00ad54fe6a76a3
+      size: 467
+    - path: src/churn_modelling/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 5cdd42e67df9327779d1906406e79546
+      size: 515
+    outs:
+    - path: artifacts/data/validation
+      hash: md5
+      md5: 609f7624571bb7815e7b4c566b89ca2f.dir
+      size: 696788
       nfiles: 3

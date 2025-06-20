@@ -8,6 +8,5 @@
 4. Update the entity
 5. Update the configuration
 6. Update the components
-7. Update the pipeline 
-8. Update the main.py
+7. Update the pipeline
 9. Update the dvc.yaml

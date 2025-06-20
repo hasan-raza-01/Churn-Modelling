@@ -107,7 +107,7 @@ class DataIngestionComponents:
             # save test data 
             self.test_data_path = self.data_ingestion_config.TEST_DATA_FILE_PATH 
             self.test_data.to_csv(self.test_data_path, index=False)
-            logging.info(f'test data saved at {{{self.test_data}}}')
+            logging.info(f'test data saved at {{{self.test_data_path}}}')
 
             logging.info("Out save_data") 
         except Exception as e:

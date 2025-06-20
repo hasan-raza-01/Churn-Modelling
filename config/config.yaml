@@ -10,3 +10,12 @@ DATA:
       ROOT_DIR: ingested 
       TRAIN_DATA: train.csv 
       TEST_DATA: test.csv 
+  VALIDATION:
+    ROOT_DIR: validation 
+    VALID:
+      ROOT_DIR: valid 
+    INVALID: 
+      ROOT_DIR: invalid 
+    TRAIN_DATA: train.csv 
+    TEST_DATA: test.csv 
+    REPORT_FILE: report.json

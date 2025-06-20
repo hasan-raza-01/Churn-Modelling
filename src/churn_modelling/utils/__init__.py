@@ -111,4 +111,9 @@ def load_pickle(path:str)-> object:
     except Exception as e:
         raise CustomException(e, sys)
 
+def create_dirs(path) -> None:
+    try:
+        os.makedirs(path, exist_ok=True)
+    except Exception as e:
+        raise CustomException(e, sys)
     

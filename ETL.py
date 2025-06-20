@@ -49,7 +49,6 @@ class ETL:
                 string = string+key+" "+base_val+", \n"
             else:
                 string = string+key+" "+base_val
-        print(f'CREATE TABLE IF NOT EXISTS {table_name} ({string})')
         cursor.execute(f'''
         CREATE TABLE IF NOT EXISTS {table_name} ({string})''')
         connection.commit()
@@ -129,7 +128,7 @@ if __name__ == "__main__":
         },
         file_path,
         'projectsbucket01', 
-        'Churn Modelling'
+        'ChurnModelling'
     )
     obj.main()
 

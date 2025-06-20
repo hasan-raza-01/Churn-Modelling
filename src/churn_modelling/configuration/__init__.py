@@ -1,0 +1,18 @@
+from churn_modelling.constants import DataIngestionConstants 
+from dataclasses import dataclass
+from pathlib import Path
+import os  
+
+@dataclass 
+class DataIngestionConfig:
+    ROOT_DIR_PATH = Path(DataIngestionConstants.ROOT_DIR)
+    DATA_ROOT_DIR_PATH = Path(os.path.join(ROOT_DIR_PATH, DataIngestionConstants.DATA_ROOT_DIR))
+    INGESTION_ROOT_DIR_PATH = Path(os.path.join(DATA_ROOT_DIR_PATH, DataIngestionConstants.INGESTION_ROOT_DIR))
+    FEATURE_STORE_ROOT_DIR_PATH = Path(os.path.join(INGESTION_ROOT_DIR_PATH, DataIngestionConstants.FEATURE_STORE_ROOT_DIR))
+    RAW_DATA_FILE_PATH = Path(os.path.join(FEATURE_STORE_ROOT_DIR_PATH, DataIngestionConstants.RAW_DATA_FILE_NAME))
+    INGESTED_ROOT_DIR_PATH = Path(os.path.join(INGESTION_ROOT_DIR_PATH, DataIngestionConstants.INGESTED_ROOT_DIR))
+    TRAIN_DATA_FILE_PATH = Path(os.path.join(INGESTED_ROOT_DIR_PATH, DataIngestionConstants.TRAIN_DATA_FILE_NAME))
+    TEST_DATA_FILE_PATH = Path(os.path.join(INGESTED_ROOT_DIR_PATH, DataIngestionConstants.TEST_DATA_FILE_NAME))
+    DATABASE_FILE_PATH = Path(DataIngestionConstants.DATABASE_FILE_PATH)
+    DATABASE_TABLE_NAME = DataIngestionConstants.DATABASE_TABLE_NAME
+

@@ -1,0 +1,12 @@
+ROOT_DIR: artifacts
+DATA:
+  ROOT_DIR: data
+  INGESTION:
+    ROOT_DIR: ingestion 
+    FEATURE_STORE:
+      ROOT_DIR: feature_store 
+      RAW_DATA: raw.csv 
+    INGESTED:
+      ROOT_DIR: ingested 
+      TRAIN_DATA: train.csv 
+      TEST_DATA: test.csv 

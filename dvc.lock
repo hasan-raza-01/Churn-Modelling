@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: uv run src/churn_modelling/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: face010a2faf73c26bedf13e0e471162
+      size: 264
+    - path: src/churn_modelling/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 37bc25538791564c536286c485a12bdc
+      size: 450
+    outs:
+    - path: artifacts/data/ingestion
+      hash: md5
+      md5: 48a4d0a6c77dd291651ca485f305594e.dir
+      size: 2769764
+      nfiles: 3

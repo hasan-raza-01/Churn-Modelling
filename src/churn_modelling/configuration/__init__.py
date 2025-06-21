@@ -1,6 +1,7 @@
 from churn_modelling.constants import (
     DataIngestionConstants,
-    DataValidationConstants
+    DataValidationConstants, 
+    DataTransformationConstants
 ) 
 from dataclasses import dataclass
 from pathlib import Path
@@ -32,4 +33,14 @@ class DataValidationConfig:
     INVALID_TEST_DATA_FILE_PATH = Path(os.path.join(INVALID_ROOT_DIR_PATH, DataValidationConstants.TEST_DATA))
     REPORT_FILE_FILE_PATH = Path(os.path.join(VALIDATION_ROOT_DIR_PATH, DataValidationConstants.REPORT_FILE))
     SCHEMA_FILE_PATH = Path(DataValidationConstants.SCHEMA_FILE_PATH)
+
+@dataclass 
+class DataTransformationConfig:
+    ROOT_DIR_PATH = Path(DataTransformationConstants.ROOT_DIR)
+    DATA_ROOT_DIR_PATH = Path(os.path.join(ROOT_DIR_PATH, DataTransformationConstants.DATA_ROOT_DIR))
+    TRANSFORMATION_ROOT_DIR_PATH = Path(os.path.join(DATA_ROOT_DIR_PATH, DataTransformationConstants.TRANSFORMATION_ROOT_DIR))
+    TRAIN_DATA_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.TRAIN_DATA))
+    TEST_DATA_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.TEST_DATA))
+    FEATURES_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.FEATURES))
+    PREPROCESSOR_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.PREPROCESSOR))
 

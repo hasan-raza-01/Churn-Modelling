@@ -29,3 +29,13 @@ class DataValidation:
     REPORT_FILE_FILE_PATH:ClassVar[Path]
     SCHEMA_FILE_PATH:ClassVar[Path]
 
+@dataclass 
+class DataTransformation:
+    ROOT_DIR_PATH:ClassVar[Path]
+    DATA_ROOT_DIR_PATH:ClassVar[Path]
+    TRANSFORMATION_ROOT_DIR_PATH:ClassVar[Path]
+    TRAIN_DATA_FILE_PATH:ClassVar[Path]
+    TEST_DATA_FILE_PATH:ClassVar[Path]
+    FEATURES_FILE_PATH:ClassVar[Path]
+    PREPROCESSOR_FILE_PATH:ClassVar[Path]
+

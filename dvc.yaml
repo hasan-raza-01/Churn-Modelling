@@ -6,7 +6,6 @@ stages:
       - config/config.yaml
     outs:
       - artifacts/data/ingestion
-  
   data_validation:
     cmd: uv run src/churn_modelling/pipeline/stage_02_data_validation.py
     deps:
@@ -16,4 +15,14 @@ stages:
       - artifacts/data/ingestion/ingested/test.csv
     outs:
       - artifacts/data/validation
+  data_transfomation:
+    cmd: uv run src/churn_modelling/pipeline/stage_03_data_transformation.py
+    deps:
+      - src/churn_modelling/pipeline/stage_03_data_transformation.py
+      - config/config.yaml
+      - artifacts/data/validation/valid/train.csv
+      - artifacts/data/validation/valid/test.csv
+      - artifacts/data/validation/report.json
+    outs:
+      - artifacts/data/transformation
   

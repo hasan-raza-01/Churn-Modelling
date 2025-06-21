@@ -19,3 +19,10 @@ DATA:
     TRAIN_DATA: train.csv 
     TEST_DATA: test.csv 
     REPORT_FILE: report.json
+  TRANSFORMATION:
+    ROOT_DIR: transformation 
+    TRAIN_DATA: train.csv 
+    TEST_DATA: test.csv
+    FEATURES: feature_names.json
+    PREPROCESSOR: preprocessor.pkl 
+  

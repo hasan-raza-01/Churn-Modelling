@@ -1,0 +1,8 @@
+{
+    "lr": [0.001],
+    "max_epochs": [1],
+    "module__num_hidden_layers": [1],
+    "module__hidden_units": [16],
+    "module__dropout": [0.3],
+    "batch_size": [32]
+}

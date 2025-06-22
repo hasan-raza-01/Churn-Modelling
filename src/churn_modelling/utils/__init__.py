@@ -55,7 +55,7 @@ def dump_json(data:dict, path:str)->None:
     """
     try:
         # Serializing json
-        json_object = json.dumps(data, indent=4)
+        json_object = json.dumps(data, default=str, indent=4)
 
         # Writing to sample.json
         with open(Path(path), "w") as outfile:

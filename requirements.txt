@@ -12,3 +12,5 @@ dagshub
 bentoml
 dvc
 dvc-s3
+torch 
+skorch

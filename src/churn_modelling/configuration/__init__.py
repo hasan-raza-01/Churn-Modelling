@@ -1,7 +1,8 @@
 from churn_modelling.constants import (
     DataIngestionConstants,
     DataValidationConstants, 
-    DataTransformationConstants
+    DataTransformationConstants, 
+    ModelTrainerConstants
 ) 
 from dataclasses import dataclass
 from pathlib import Path
@@ -43,4 +44,15 @@ class DataTransformationConfig:
     TEST_DATA_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.TEST_DATA))
     FEATURES_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.FEATURES))
     PREPROCESSOR_FILE_PATH = Path(os.path.join(TRANSFORMATION_ROOT_DIR_PATH, DataTransformationConstants.PREPROCESSOR))
+
+@dataclass 
+class ModelTrainerConfig:
+    ROOT_DIR_PATH = Path(ModelTrainerConstants.ROOT_DIR)
+    MODEL_ROOT_DIR_PATH = Path(os.path.join(ROOT_DIR_PATH, ModelTrainerConstants.MODEL_ROOT_DIR))
+    TRAINING_ROOT_DIR_PATH = Path(os.path.join(MODEL_ROOT_DIR_PATH, ModelTrainerConstants.TRAINING_ROOT_DIR))
+    SCORES_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.SCORES_FILE))
+    BEST_PARAMS_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.BEST_PARAMS_FILE))
+    ESTIMATOR_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.ESTIMATOR_FILE))
+    PARAMS_FILE_PATH = Path(ModelTrainerConstants.PARAMS_FILE_PATH)
+    TARGET = ModelTrainerConstants.TARGET
 

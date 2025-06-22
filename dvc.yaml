@@ -25,4 +25,13 @@ stages:
       - artifacts/data/validation/report.json
     outs:
       - artifacts/data/transformation
+  model_trainer:
+    cmd: uv run src/churn_modelling/pipeline/stage_04_model_trainer.py
+    deps:
+      - src/churn_modelling/pipeline/stage_04_model_trainer.py
+      - config/config.yaml
+      - artifacts/data/transformation/train.csv
+      - artifacts/data/transformation/test.csv
+    outs:
+      - artifacts/model/train 
   

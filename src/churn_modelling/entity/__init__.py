@@ -39,3 +39,14 @@ class DataTransformation:
     FEATURES_FILE_PATH:ClassVar[Path]
     PREPROCESSOR_FILE_PATH:ClassVar[Path]
 
+@dataclass 
+class ModelTrainer:
+    ROOT_DIR_PATH:ClassVar[Path]
+    MODEL_ROOT_DIR_PATH:ClassVar[Path]
+    TRAINING_ROOT_DIR_PATH:ClassVar[Path]
+    SCORES_FILE_PATH:ClassVar[Path]
+    BEST_PARAMS_FILE_PATH:ClassVar[Path]
+    ESTIMATOR_FILE_PATH:ClassVar[Path]
+    PARAMS_FILE_PATH:ClassVar[Path]
+    TARGET:str 
+

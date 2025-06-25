@@ -16,7 +16,7 @@ At its core is a PyTorch-based artificial neural network (ANN), wrapped with Sko
 S3_BUCKET=""
 S3_BUCKET_OBJECT=""
 S3_BUCKET_PREDICTION_OBJECT=""
-S3_BUCKET_MLFLOW_DIR="ChurnModelling-mlruns"
+S3_BUCKET_MLFLOW_DIR=""
 MLFLOW_S3_ENDPOINT_URL="https://s3.amazonaws.com"
 MLFLOW_TRACKING_URI="http://mlflow-server:5000"
 ```

@@ -115,20 +115,27 @@ class DataTransformationComponents:
 
             # transform data 
             # train data 
-            transformed_train_data = self.preprocessor.fit_transform(self.train_data)
+            X_train = self.train_data.drop(self.target, axis=1)
+            y_train = self.train_data[self.target]
+            transformed_X_train = self.preprocessor.fit_transform(X_train)
             logging.info('successfully transformed train data')
             # test data 
-            transformed_test_data = self.preprocessor.fit_transform(self.test_data)
+            X_test = self.test_data.drop(self.target, axis=1)
+            y_test = self.test_data[self.target]
+            transformed_X_test = self.preprocessor.transform(X_test)
             logging.info('successfully transformed test data')
 
-            # create data frame with transformed data 
+            # columns after transformation 
             self.columns = [name.split('__')[1] for name in self.preprocessor.get_feature_names_out()]
-            logging.info(f'columns after transformation {self.columns}')
+            logging.info(f'columns of transfomed data {self.columns}')
+
+            # create data frame with transformed data 
             # train data 
-            self.transformed_train_data = pd.DataFrame(transformed_train_data, columns=self.columns)
+            self.transformed_train_data = pd.concat([pd.DataFrame(transformed_X_train, columns=self.columns), y_train], axis=1)
+            logging.info(f'columns of train data after transformation {self.transformed_train_data.columns.tolist()}')
             # test data 
-            self.transformed_test_data = pd.DataFrame(transformed_test_data, columns=self.columns)
-            logging.info('converted transformed train and test data into dataframes')
+            self.transformed_test_data = pd.concat([pd.DataFrame(transformed_X_test, columns=self.columns), y_test], axis=1)
+            logging.info(f'columns of test data after transformation {self.transformed_test_data.columns.tolist()}')
 
             # handle imbalnced training dataset
             # get majority category
@@ -168,8 +175,16 @@ class DataTransformationComponents:
 
             # feature names
             feature_names_path = self.data_transformation_config.FEATURES_FILE_PATH
-            dump_json({'columns':self.columns}, feature_names_path)
-            logging.info(f'feature names saved at {{{feature_names_path}}}')
+            data = {}
+            dataframe = pd.concat([self.train_data, self.test_data], axis=0)
+            for col in dataframe.columns: 
+                uniques = self.train_data[col].unique()
+                if len(uniques) > 15:
+                    data[col] = [len(uniques)]
+                else:
+                    data[col] = [len(uniques), uniques.tolist()]
+            dump_json(data, feature_names_path)
+            logging.info(f'feature names along with unique vlaues count saved at {{{feature_names_path}}}')
 
             # preprocessor 
             preprocessor_path = self.data_transformation_config.PREPROCESSOR_FILE_PATH

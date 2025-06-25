@@ -8,9 +8,8 @@ matplotlib
 seaborn 
 scikit-learn
 mlflow
-dagshub
-bentoml
 dvc
 dvc-s3
 torch 
 skorch
+gradio

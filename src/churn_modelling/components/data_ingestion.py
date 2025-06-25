@@ -19,7 +19,7 @@ class DataIngestionComponents:
         try:
             logging.info("In data_collection") 
             # load .env 
-            load_status = load_dotenv()
+            load_status = load_dotenv(".env")
             logging.info(f".env load status {{{load_status}}}")
             # download db file from s3
             try:

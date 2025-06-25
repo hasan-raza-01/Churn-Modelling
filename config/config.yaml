@@ -31,4 +31,10 @@ MODEL:
     ROOT_DIR: train 
     SCORES_FILE: search_output.json 
     BEST_PARAMS_FILE: best_params.json
-    ESTIMATOR_FILE: estimator.pkl 
+    ESTIMATOR_WEIGHT_FILE: estimator_weights.pkl 
+    OPTIMIZER_FILE: optimizer.pkl 
+    ESTIMATOR_HISTORY_FILE: history.json 
+  PREDICTION:
+    ROOT_DIR: predictions 
+    FILE_EXT: .json
+  

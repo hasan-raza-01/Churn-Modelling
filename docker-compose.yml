@@ -1,0 +1,22 @@
+services:
+  mlflow-server:
+    build:
+      context: ./mlflow-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_db_data:/app/mlruns
+
+  ml-app:
+    build:
+      context: .
+      dockerfile: ml-app/Dockerfile
+    ports:
+    - "7860:7860"
+    env_file:
+      - /home/ubuntu/.env
+    depends_on:
+      - mlflow-server
+
+volumes:
+  mlflow_db_data:

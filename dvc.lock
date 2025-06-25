@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 95c494c682c8ddbad9341913573693d8
-      size: 819
+      md5: 5a2b2d073afc13fab465313aeaeb0d8b
+      size: 979
     - path: src/churn_modelling/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 37bc25538791564c536286c485a12bdc
@@ -30,8 +30,8 @@ stages:
       size: 463909
     - path: config/config.yaml
       hash: md5
-      md5: 95c494c682c8ddbad9341913573693d8
-      size: 819
+      md5: 5a2b2d073afc13fab465313aeaeb0d8b
+      size: 979
     - path: src/churn_modelling/pipeline/stage_02_data_validation.py
       hash: md5
       md5: 5cdd42e67df9327779d1906406e79546
@@ -59,8 +59,8 @@ stages:
       size: 463909
     - path: config/config.yaml
       hash: md5
-      md5: 95c494c682c8ddbad9341913573693d8
-      size: 819
+      md5: 5a2b2d073afc13fab465313aeaeb0d8b
+      size: 979
     - path: src/churn_modelling/pipeline/stage_03_data_transformation.py
       hash: md5
       md5: 11a5f61b415ca6106622447b64ff8f9f
@@ -68,24 +68,24 @@ stages:
     outs:
     - path: artifacts/data/transformation
       hash: md5
-      md5: a0aaa7b7fc518f68541d08c41f5ae3a1.dir
-      size: 1660408
+      md5: abc0b541c78a81b0aafbe71c42a2d7f5.dir
+      size: 1631552
       nfiles: 4
   model_trainer:
     cmd: uv run src/churn_modelling/pipeline/stage_04_model_trainer.py
     deps:
     - path: artifacts/data/transformation/test.csv
       hash: md5
-      md5: 4bc328f51be2fdf3342aed01616d5c25
-      size: 394778
+      md5: 9a98f392a72b7badc376fae26edebd1f
+      size: 386545
     - path: artifacts/data/transformation/train.csv
       hash: md5
-      md5: 4a7d8f51ff253cbbda88b3d5ee6895f7
-      size: 1262263
+      md5: 7704a59a536ccc6064e6dafbb4dc8002
+      size: 1241039
     - path: config/config.yaml
       hash: md5
-      md5: 95c494c682c8ddbad9341913573693d8
-      size: 819
+      md5: 5a2b2d073afc13fab465313aeaeb0d8b
+      size: 979
     - path: src/churn_modelling/pipeline/stage_04_model_trainer.py
       hash: md5
       md5: 6b2a065de207c5a8f26252a22180b3bf
@@ -93,6 +93,6 @@ stages:
     outs:
     - path: artifacts/model/train
       hash: md5
-      md5: f57d6c4255b32d000ee7bb5d03537859.dir
-      size: 29003
-      nfiles: 3
+      md5: 4af39ee49abab5fdea1cab36cefc947f.dir
+      size: 30887
+      nfiles: 5

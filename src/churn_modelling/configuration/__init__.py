@@ -2,7 +2,8 @@ from churn_modelling.constants import (
     DataIngestionConstants,
     DataValidationConstants, 
     DataTransformationConstants, 
-    ModelTrainerConstants
+    ModelTrainerConstants, 
+    ModelPredictionConstants
 ) 
 from dataclasses import dataclass
 from pathlib import Path
@@ -52,7 +53,15 @@ class ModelTrainerConfig:
     TRAINING_ROOT_DIR_PATH = Path(os.path.join(MODEL_ROOT_DIR_PATH, ModelTrainerConstants.TRAINING_ROOT_DIR))
     SCORES_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.SCORES_FILE))
     BEST_PARAMS_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.BEST_PARAMS_FILE))
-    ESTIMATOR_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.ESTIMATOR_FILE))
+    ESTIMATOR_WEIGHT_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.ESTIMATOR_WEIGHT_FILE))
+    OPTIMIZER_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.OPTIMIZER_FILE))
+    ESTIMATOR_HISTORY_FILE_PATH = Path(os.path.join(TRAINING_ROOT_DIR_PATH, ModelTrainerConstants.ESTIMATOR_HISTORY_FILE))
     PARAMS_FILE_PATH = Path(ModelTrainerConstants.PARAMS_FILE_PATH)
     TARGET = ModelTrainerConstants.TARGET
 
+@dataclass 
+class ModelPredictionConfig:
+    ROOT_DIR_PATH = Path(ModelPredictionConstants.ROOT_DIR)
+    FILE_PATH = Path(os.path.join(ROOT_DIR_PATH, ModelPredictionConstants.FILE_EXT))
+    BUCKET = ModelPredictionConstants.BUCKET
+    OBJECT = ModelPredictionConstants.OBJECT

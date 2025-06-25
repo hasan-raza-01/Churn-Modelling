@@ -1,7 +1,8 @@
 from churn_modelling.exception import CustomException
-import sys, yaml, os, json, pickle, sqlite3
+import sys, yaml, os, json, pickle, importlib
 from pathlib import Path
 from box import ConfigBox
+from typing import Any, Dict
 
 
 
@@ -62,8 +63,27 @@ def dump_json(data:dict, path:str)->None:
             outfile.write(json_object)
     except Exception as e:
         raise CustomException(e, sys)
+
+# Helper to convert stringified class to actual class object
+def string_to_class(class_str: str) -> Any:
+    """Converts string like "<class 'torch.optim.adam.Adam'>" to actual class."""
+    if isinstance(class_str, str) and class_str.startswith("<class ") and ">" in class_str:
+        clean_str = class_str.strip("<>").replace("class ", "").replace("'", "")
+        module_path, class_name = clean_str.rsplit(".", 1)
+        module = importlib.import_module(module_path)
+        return getattr(module, class_name)
+    return class_str
+
+# Recursive conversion in case of nested dicts/lists
+def convert_classes_recursively(obj: Any) -> Any:
+    if isinstance(obj, dict):
+        return {k: convert_classes_recursively(string_to_class(v)) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_classes_recursively(string_to_class(i)) for i in obj]
+    else:
+        return string_to_class(obj)
     
-def load_json(path:str)->dict:
+def load_json(path:str) -> Dict:
     """reads the data present inside the file provided in \'path\' variable
 
     Args:
@@ -78,7 +98,7 @@ def load_json(path:str)->dict:
 
             # Reading from json file
             json_object = json.load(openfile)
-            return json_object
+            return convert_classes_recursively(json_object)
     except Exception as e:
         raise CustomException(e, sys)
     

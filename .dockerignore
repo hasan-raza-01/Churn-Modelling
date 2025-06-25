@@ -1,14 +1,12 @@
-# Ignores from this projects
-
 # Folders
 .venv/
 __pycache__/
 logs/
 artifacts/
 database/
-mlruns/ 
-predictions/ 
-
+notebook/
+mlruns/
+predictions/
 
 # Files
 *.egg-info

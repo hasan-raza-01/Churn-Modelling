@@ -46,7 +46,15 @@ class ModelTrainer:
     TRAINING_ROOT_DIR_PATH:ClassVar[Path]
     SCORES_FILE_PATH:ClassVar[Path]
     BEST_PARAMS_FILE_PATH:ClassVar[Path]
-    ESTIMATOR_FILE_PATH:ClassVar[Path]
+    ESTIMATOR_WEIGHT_FILE_PATH:ClassVar[Path]
+    OPTIMIZER_FILE_PATH:ClassVar[Path]
+    ESTIMATOR_HISTORY_FILE_PATH:ClassVar[Path]
     PARAMS_FILE_PATH:ClassVar[Path]
     TARGET:str 
 
+@dataclass 
+class ModelPrediction:
+    ROOT_DIR_PATH:ClassVar[Path]
+    FILE_PATH:ClassVar[Path]
+    BUCKET:ClassVar[str]
+    OBJECT:ClassVar[str]

@@ -24,3 +24,8 @@ class TrainingPipeline:
         data_transformation_pipeline = ModelTrainerPipeline()
         data_transformation_pipeline.run()
 
+
+if __name__ == "__main__":
+    pipeline = TrainingPipeline()
+    pipeline.run()
+

@@ -40,7 +40,7 @@ http://localhost:5000
 http://mlflow-server:5000
 ```
 
-## env file path [env_file] in docker-compose.yml to 
+## env file path [env_file] in docker-compose.yml 
 ### local machine
 ```
 .env

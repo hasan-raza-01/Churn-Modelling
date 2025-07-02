@@ -123,7 +123,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   ```
   http://localhost:5000
   ```
-    - ***dockerize/deployment*** 
+  - ***dockerize/deployment*** 
   ```
   http://mlflow-server:5000
   ```

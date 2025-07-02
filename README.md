@@ -109,13 +109,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    cd Churn-Modelling
    ```
 
-2. **Pull Data & Artifacts**
-
-   ```bash
-   dvc pull
-   ```
-
-3. **Install Dependencies**
+2. **Install Dependencies**
 
    ```bash
    pip install --upgrade pip uv
@@ -124,7 +118,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    uv pip install -e .
    ```
 
-4. **Environment Variable MLFLOW_TRACKING_URI**
+3. **Environment Variable MLFLOW_TRACKING_URI**
   - ***local machine*** 
   ```
   http://localhost:5000
@@ -134,7 +128,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   http://mlflow-server:5000
   ```
 
-5. **env file path [env_file] in docker-compose.yml** 
+4. **env file path [env_file] in docker-compose.yml** 
   - ***local machine dockerization*** 
   ```
   .env
@@ -144,7 +138,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   /home/ubuntu/.env
   ```
 
-6. **Start Services**
+5. **Start Services**
   - ***build images***
    ```bash
    docker-compose up --build
@@ -160,12 +154,12 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       --port 5000
     ```
 
-7. **Skip 6 and start both process at a time(Dockerization)**
+6. **Skip 5th step and start both process at a time(Dockerization)**
   ```bash
   docker-compose up -d mlflow-server
   ```
 
-8. **Or Run Components Manually**
+7. **Or Run Components Manually**
 
    ```bash
    uv run ETL.py
@@ -174,5 +168,5 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    uv run app.py
    ```
 
-9. **Visit the UI**
+8. **Visit the UI**
    Open your browser to `http://localhost:7860` to train the model or predict churn in real time.

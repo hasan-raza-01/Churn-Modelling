@@ -106,9 +106,10 @@ class ETL:
 if __name__ == "__main__":
     os.makedirs("database", exist_ok=True)
     file_path = "database/Bank.db"
+    data_path = "D:/MyDatasets/ChurnModelling/data.csv"
     obj = ETL(
         file_path,
-        pd.read_csv("D:/MyDatasets/ChurnModelling/data.csv"),
+        pd.read_csv(data_path),
         "ChurnModelling",
         {
             'RowNumber': 'INTEGER',

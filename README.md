@@ -110,7 +110,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    ```
 
 2. **Install Dependencies**
-  - ***Install pip and uv***
+  - ***Upgrade/Install pip and uv***
     ```bash
     pip install --upgrade pip uv
     ```

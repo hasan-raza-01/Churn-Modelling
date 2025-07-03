@@ -154,7 +154,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 5. **Run app**
   - **Docker**
-    - ***build images***
+    - ***build and run images***
     ```bash
     docker-compose up --build
     ```

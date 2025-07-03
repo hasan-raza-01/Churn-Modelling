@@ -153,7 +153,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   ```
 
 5. **Run app**
-   #### **run Extract Transform Load Pipeline**
+   #### **Run ETL[Extract Transform Load] Pipeline**
    #### ***Note: Change variable named 'data_path' inside section __name__ == "__main__" of ETL.py with path/of/data/inside/your/local/system***
     ```
     uv run ETL.py

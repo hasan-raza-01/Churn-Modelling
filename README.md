@@ -152,30 +152,33 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   /home/ubuntu/.env
   ```
 
-5. **Start Services through Docker**
-  - ***build images***
-   ```bash
-   docker-compose up --build
-   ```
-
-6. **Or Run Components Manually**
-  -  ***MLflow Server Launch***
-  #### Before running the app, start the tracking server:
-  #### Note: change <your-bucket> & <path> from s3 bucke and path for file respectively.
+5. **Run app**
+  - **Docker**
+    - ***build images***
     ```bash
-    mlflow server \
-      --backend-store-uri sqlite:///mlruns/mlflow.db \
-      --default-artifact-root s3://<your-bucket>/<path>/ \
-      --host 0.0.0.0 \
-      --port 5000
-    ```
-  - ***Run app***
-    ```bash
-    uv run ETL.py
-    dvc repro
-
-    uv run app.py
+    docker-compose up --build
     ```
 
-7. **Visit the UI**
+  - **Manuall**
+    -  **MLflow Server Launch**
+      ***Before running the app, start the tracking server:***
+      ***Note: change <your-bucket> & <path> from s3 bucke and path for file respectively.***
+      ```bash
+      mlflow server \
+        --backend-store-uri sqlite:///mlruns/mlflow.db \
+        --default-artifact-root s3://<your-bucket>/<path>/ \
+        --host 0.0.0.0 \
+        --port 5000
+      ```
+    - **Run app**
+      - ***run backend***
+        ```bash
+        dvc repro
+        ```
+      - ***run frontend***
+        ```
+        uv run app.py
+        ```
+
+6. **Visit the UI**
    Open your browser to `http://localhost:7860` to train the model or predict churn in real time.

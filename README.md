@@ -162,9 +162,9 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   - **Manuall**
     -  **MLflow Server Launch**
 
-      # ***Before running the app, start the tracking server:***
+      #### ***Before running the app, start the tracking server:***
 
-      # ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/.db/file respectively.***
+      #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/.db/file respectively.***
       ```bash
       mlflow server \
         --backend-store-uri sqlite:///mlruns/mlflow.db \
@@ -173,7 +173,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
         --port 5000
       ```
     - **Run application**
-      # ***Note: On first run It will take time for creation of artifacts***
+      #### ***Note: On first run It will take time for creation of artifacts***
       ```
       uv run app.py
       ```

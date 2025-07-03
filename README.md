@@ -160,10 +160,8 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     ```
 
   - **Manuall**
-    -  **MLflow Server Launch**
-
+    - **MLflow Server Launch**
       #### ***Before running the app, start the tracking server:***
-
       #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/.db/file respectively.***
       ```bash
       mlflow server \

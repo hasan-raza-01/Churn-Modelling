@@ -161,7 +161,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
   - **Manuall**
     -  **MLflow Server Launch**
-    
+
       ***Before running the app, start the tracking server:***
 
       ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/.db/file respectively.***
@@ -172,15 +172,14 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
         --host 0.0.0.0 \
         --port 5000
       ```
-    - **Run app**
-      - ***run backend***
-        ```bash
-        dvc repro
-        ```
-      - ***run frontend***
-        ```
-        uv run app.py
-        ```
+    - **Create required artifacts**
+      ```bash
+      dvc repro
+      ```
+    - **Run application**
+      ```
+      uv run app.py
+      ```
 
 6. **Visit the UI**
    Open your browser to `http://localhost:7860` to train the model or predict churn in real time.

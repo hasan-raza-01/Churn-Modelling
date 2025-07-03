@@ -114,27 +114,23 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    ```bash
    pip install --upgrade pip uv
    ```
-
    - ***create virtual environment through uv***
    ```bash
    uv venv 
    ```
-   
    - ***activate the environment***
-    - ***Command Prompt***
-      ```bash
-      .venv\scripts\activate
-      ```
-
-    - ***Git Bash***
-      ```
-      source .venv/scripts/activate
-      ```
-      
-    - ***Install required packages***
-      ```
-      uv pip install -e .
-      ```
+      - ***Command Prompt***
+        ```bash
+        .venv\scripts\activate
+        ```
+      - ***Git Bash***
+        ```
+        source .venv/scripts/activate
+        ```
+      - ***Install required packages***
+        ```
+        uv pip install -e .
+        ```
 
 3. **Environment Variable MLFLOW_TRACKING_URI**
   - ***local machine*** 

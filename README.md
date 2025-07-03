@@ -152,7 +152,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   /home/ubuntu/.env
   ```
 
-5. **Start Services**
+5. **Start Services through Docker**
   - ***build images***
    ```bash
    docker-compose up --build

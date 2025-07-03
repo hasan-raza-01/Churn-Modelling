@@ -111,13 +111,13 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 2. **Install Dependencies**
   - ***Install pip and uv***
-   ```bash
-   pip install --upgrade pip uv
-   ```
+    ```bash
+    pip install --upgrade pip uv
+    ```
   - ***create virtual environment through uv***
-  ```bash
-  uv venv .venv --python 3.12
-  ```
+    ```bash
+    uv venv .venv --python 3.12
+    ```
   - ***activate the environment***
     - ***Command Prompt / PowerShell***
       ```bash

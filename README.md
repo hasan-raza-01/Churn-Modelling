@@ -160,6 +160,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     ```
   - **Docker**
     - ***build and run images***
+      #### ***Note: change 'projectsbucket01' & 'ChurnModelling-mlruns' from s3 bucket and path/of/s3object/to/store/.db/file respectively present inside CMD block of mlflow-server/Dockerfile***
     ```bash
     docker-compose up --build
     ```
@@ -167,7 +168,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   - **Manuall**
     - **MLflow Server Launch**
       #### ***Before running the app, start the tracking server:***
-      #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/.db/file respectively.***
+      #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/s3object/to/store/.db/file respectively.***
       ```bash
       mlflow server \
         --backend-store-uri sqlite:///mlruns/mlflow.db \

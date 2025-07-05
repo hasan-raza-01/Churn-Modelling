@@ -2,6 +2,7 @@ services:
   mlflow-server:
     build:
       context: ./mlflow-server
+    image: churnmodelling.azurecr.io/mlflow-server:latest
     ports:
       - "5000:5000"
     volumes:
@@ -11,10 +12,11 @@ services:
     build:
       context: .
       dockerfile: ml-app/Dockerfile
+    image: churnmodelling.azurecr.io/ml-app:latest
     ports:
     - "7860:7860"
     env_file:
-      - /home/ubuntu/.env
+      - /home/azureuser/.env
     depends_on:
       - mlflow-server
 

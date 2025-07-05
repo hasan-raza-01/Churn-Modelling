@@ -82,6 +82,14 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 * **GitHub Actions**
   Automates DVC pulls, linting, testing, and Docker image builds on every commit (`.github/workflows/`).
+* **Azure Container Registry (ACR)**
+  * Pushes built Docker images (mlflow-server and ml-app) to your Azure Container Registry.
+  * Uses azure/login, azure/docker-login, and azure/cli GitHub Action steps to authenticate and push images.
+  * Tags images with commit SHA and latest for traceability.
+* **Azure Virtual Machine**
+  * After images are in ACR, a final workflow step uses az vm extension or ssh-action to pull the latest images on an Azure VM (Ubuntu) and restart the containers.
+  * Exposes ports 5000 (MLflow) and 7860 (Gradio) via Azure NSG rules.
+  * Environment variables and secrets (ACR credentials, S3 endpoints, etc.) are injected via VM-managed identities or a .env on the VM.
 * **Docker Compose**
 
   * **mlflow-server**: Builds from `mlflow-server/`, exposes port 5000, persists MLflow runs to a Docker volume.
@@ -90,14 +98,21 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   Store credentials and endpoints in a `.env` (referenced by `docker-compose.yml`):
 
   ```
-  S3_BUCKET=""
-  S3_BUCKET_OBJECT=""
-  S3_BUCKET_PREDICTION_OBJECT=""
-  S3_BUCKET_MLFLOW_DIR=""
+  S3_BUCKET=your_s3_bucket_name
+  S3_BUCKET_OBJECT=your_s3_bucket_object[sqlite file storage object]
+  S3_BUCKET_PREDICTION_OBJECT=your_s3_bucket_object[predictions storage]
+  S3_BUCKET_MLFLOW_DIR=your_s3_bucket_objet[to store mlflow experiments]
   MLFLOW_S3_ENDPOINT_URL="https://s3.amazonaws.com"
   MLFLOW_TRACKING_URI="http://mlflow-server:5000"
   ```
-
+  **GitHub Secrets Action**
+  ```
+  ACR_USERNAME=your_azure_container_registory_admin_username
+  ACR_PASSWORD=your_azure_container_registory_admin_password
+  AZURE_VM_HOST=your_azure_Virtual_Machine_Publi_Port
+  AZURE_VM_USER=your_azure_Virtual_Machine_username{default:azureuser}
+  SSH_PRIVATE_KEY=your_azure_ssh_key_for_vm
+  ```
 ---
 
 ## 🏃 Running Locally

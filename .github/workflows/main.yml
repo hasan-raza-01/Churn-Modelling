@@ -27,14 +27,14 @@ jobs:
         run: docker compose build --no-cache 
 
       - name: Push images to ACR
-        run: |
-            docker push $MLFLOW_IMAGE
-            docker push $MLAPP_IMAGE
+        run: | 
+          docker push $MLFLOW_IMAGE
+          docker push $MLAPP_IMAGE
 
   deploy:
     name: Continuous Deployment
     needs: build-and-push
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -42,11 +42,6 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} 
-      
-      - name: Stop all running containers and Cleaning previous images, containers and volumes
-        run: | 
-            docker compose down
-            docker system prune -af
 
       - name: Deploy on Azure VM
         uses: appleboy/ssh-action@master
@@ -55,5 +50,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            docker compose down
+            docker system prune -af
             docker compose pull
             docker compose up -d

@@ -49,6 +49,28 @@ jobs:
           host: ${{ secrets.AZURE_VM_HOST }}
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
+          source: "docker-compose.yml"
           target: "/home/azureuser/app"
+        
+      - name: Run docker compose on Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/azureuser/app
 
+            echo "Stop all running containers"
+            docker compose down
+
+            echo "Clean prevous images, containers, volumes"
+            docker system prune -af
+            
+            echo "Pulling latest images from ACR..."
+            docker compose pull
+            
+            echo "Starting application..."
+            docker compose up -d --remove-orphans
+            
+            echo "Application started."

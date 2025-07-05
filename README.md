@@ -162,6 +162,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
   - **Manuall**
     - ***Environment Variable MLFLOW_TRACKING_URI***
+      #### ***Note: if not provided any Environment Variable named MLFLOW_TRACKING_URI, fine its default to below uri***
       ```
       http://localhost:5000
       ```

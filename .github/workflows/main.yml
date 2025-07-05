@@ -64,8 +64,6 @@ jobs:
           script: |
             cd /home/azureuser/app
 
-            echo "${{ secrets.ACR_PASSWORD }}" | docker login churnmodelling.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
-
             echo "Stop all running containers"
             docker compose down
 

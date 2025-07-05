@@ -132,17 +132,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     uv pip install -e .
     ```
 
-3. **Environment Variable MLFLOW_TRACKING_URI**
-  - ***local machine*** 
-  ```
-  http://localhost:5000
-  ```
-  - ***dockerize/deployment*** 
-  ```
-  http://mlflow-server:5000
-  ```
-
-4. **env file path [env_file] in docker-compose.yml** 
+3. **env file path [env_file] in docker-compose.yml** 
   - ***local machine dockerization*** 
   ```
   .env
@@ -152,13 +142,17 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   /home/ubuntu/.env
   ```
 
-5. **Run app**
+4. **Run app**
    #### **Run ETL[Extract Transform Load] Pipeline**
    #### ***Note: Change variable named 'data_path' inside section [__name__ == "__main__"] of ETL.py with path/of/data/inside/your/local/system***
     ```
     uv run ETL.py
     ```
   - **Docker**
+    - ***Environment Variable MLFLOW_TRACKING_URI***
+      ```
+      http://mlflow-server:5000
+      ```
     - ***build and run images***
       #### ***Note: change 'projectsbucket01' & 'ChurnModelling-mlruns' from s3 bucket and path/of/s3object/to/store/.db/file respectively present inside CMD block of mlflow-server/Dockerfile***
     ```bash
@@ -166,6 +160,10 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     ```
 
   - **Manuall**
+    - ***Environment Variable MLFLOW_TRACKING_URI***
+      ```
+      http://localhost:5000
+      ```
     - **MLflow Server Launch**
       #### ***Before running the app, start the tracking server:***
       #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/s3object/to/store/.db/file respectively.***
@@ -182,5 +180,5 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       uv run app.py
       ```
 
-6. **Visit the UI**
+5. **Visit the UI**
    Open your browser to `http://localhost:7860` to train the model or predict churn in real time.

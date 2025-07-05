@@ -5,6 +5,10 @@ on:
     branches: [ main ]
     paths-ignore: [ README.md ]
 
+env: 
+  MLFLOW_IMAGE: churnmodelling.azurecr.io/mlflow-server:latest
+  MLAPP_IMAGE: churnmodelling.azurecr.io/ml-app:latest
+
 jobs:
   build-and-push:
     name: Build & Push Images

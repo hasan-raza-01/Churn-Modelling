@@ -132,18 +132,8 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     uv pip install -e .
     ```
 
-3. **env file path [env_file] in docker-compose.yml** 
-  - ***local machine dockerization*** 
-  ```
-  .env
-  ```
-  - ***Aws Cloud deployment*** 
-  ```
-  /home/ubuntu/.env
-  ```
-
-4. **Run app**
-   #### **Run ETL[Extract Transform Load] Pipeline**
+3. **Run app**
+   #### ***Run ETL[Extract Transform Load] Pipeline***
    #### ***Note: Change variable named 'data_path' inside section [__name__ == "__main__"] of ETL.py with path/of/data/inside/your/local/system***
     ```
     uv run ETL.py
@@ -153,11 +143,22 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       ```
       http://mlflow-server:5000
       ```
+    - ***env file path [env_file] in docker-compose.yml*** 
+      - ***local machine dockerization*** 
+        ```
+        .env
+        ```
+      - ***Aws Cloud deployment*** 
+        #### ***path of env file created on server***
+        ```
+        /home/ubuntu/.env
+        ```
+
     - ***build and run images***
       #### ***Note: change 'projectsbucket01' & 'ChurnModelling-mlruns' from s3 bucket and path/of/s3object/to/store/.db/file respectively present inside CMD block of mlflow-server/Dockerfile***
-    ```bash
-    docker-compose up --build
-    ```
+      ```bash
+      docker-compose up --build
+      ```
 
   - **Manuall**
     - ***Environment Variable MLFLOW_TRACKING_URI***
@@ -165,7 +166,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       http://localhost:5000
       ```
     - **MLflow Server Launch**
-      #### ***Before running the app, start the tracking server:***
+      #### ***Before running the app, start the tracking server***
       #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/s3object/to/store/.db/file respectively.***
       ```bash
       mlflow server \
@@ -180,5 +181,5 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       uv run app.py
       ```
 
-5. **Visit the UI**
+4. **Visit the UI**
    Open your browser to `http://localhost:7860` to train the model or predict churn in real time.

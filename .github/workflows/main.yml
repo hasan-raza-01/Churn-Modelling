@@ -27,7 +27,9 @@ jobs:
         run: docker compose build --no-cache 
 
       - name: Push images to ACR
-        run: docker compose push
+        run: |
+            docker push $MLFLOW_IMAGE
+            docker push $MLAPP_IMAGE
 
   deploy:
     name: Continuous Deployment

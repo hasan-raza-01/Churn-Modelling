@@ -34,7 +34,7 @@ jobs:
   deploy:
     name: Continuous Deployment
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
 

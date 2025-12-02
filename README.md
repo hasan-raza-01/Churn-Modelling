@@ -13,27 +13,65 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 ```
 .
-├── .dvc/                          # DVC configuration & cache
-├── .github/workflows/             # CI/CD pipelines
-├── config/                        # Project-wide YAML config
-├── ml-app/                        # Dockerfile & settings for Gradio app
-├── mlflow-server/                 # Dockerfile & setup for MLflow server
-├── notebook/                      # Exploratory data analysis notebooks
-├── schema/                        # Saved schema definitions (YAML)
+├── .github/
+│   └── workflows/             # CI/CD pipeline workflows for automated deployment
+├── config/
+│   └── config.yaml            # Project configuration: artifact paths, model settings, MongoDB connection
+├── notebook/                  # Jupyter notebooks for experimentation and prototyping
+│   ├── data/
+│   │   └── churn.csv          # Sample churn dataset for experiments
+│   ├── EDA.ipynb              # Exploratory data analysis
+│   ├── ETL.ipynb              # ETL process experimentation
+│   ├── data_ingestion.ipynb   # Data ingestion prototyping
+│   ├── data_transformation.ipynb # Data preprocessing and feature engineering
+│   ├── data_validation.ipynb  # Data quality validation experiments
+│   ├── model_evaluation.ipynb # Model evaluation with classification metrics
+│   ├── model_trainer.ipynb    # Model training experimentation
+│   └── trail.ipynb            # Experimental trials
+├── schema/
+│   └── schema.yaml            # Data schema definition for validation
 ├── src/
-│   └── churn_modelling/           # Package source
-│       ├── configuration.py       # Config dataclasses
-│       ├── pipeline/              # Ingestion, validation, transformation, training, prediction
-│       ├── utils/                 # Model helpers, file I/O
-│       ├── logger.py              # Logging setup
-│       └── exception.py           # Custom exceptions
-├── ETL.py                         # Orchestrates ingestion, DB & S3 push, schema save
-├── ProjectConfig.json             # Basic project metadata
-├── docker-compose.yml             # Multi‑service orchestration
-├── dvc.yaml / dvc.lock            # Pipeline stage definitions & lock file
-├── params.json                    # Pipeline hyperparameters
-├── requirements.txt               # Python dependencies
-└── setup.py                       # Package installer
+│   └── churn/                 # Main package source code
+│       ├── __init__.py
+│       ├── cloud/
+│       │   └── __init__.py    # Cloud storage operations (S3)
+│       ├── components/        # Core ML pipeline components
+│       │   ├── __init__.py
+│       │   ├── data_ingestion.py      # Fetches data from MongoDB and splits train/test sets
+│       │   ├── data_transformation.py # Preprocesses data: encoding, scaling, feature engineering
+│       │   ├── data_validation.py     # Validates data against schema and checks quality
+│       │   ├── model_evaluation.py    # Evaluates model: accuracy, precision, recall, F1, ROC-AUC
+│       │   └── model_trainer.py       # Trains classification model for churn prediction
+│       ├── configuration/
+│       │   └── __init__.py    # Configuration manager: reads config.yaml, MongoDB setup
+│       ├── constants/
+│       │   └── __init__.py    # Project constants: environment variables, collection names, paths
+│       ├── entity/
+│       │   └── __init__.py    # Dataclass entities: artifact and configuration objects
+│       ├── exception/
+│       │   └── __init__.py    # Custom exception handling with detailed error messages
+│       ├── logger/
+│       │   └── __init__.py    # Structured logging setup with timestamps
+│       ├── pipeline/          # Orchestration layer for training and prediction pipelines
+│       │   ├── __init__.py
+│       │   ├── prediction_pipeline.py # Prediction pipeline: loads model and predicts churn
+│       │   └── training_pipeline.py   # Training pipeline: orchestrates all 5 stages
+│       └── utils/
+│           └── __init__.py    # Utility functions: YAML I/O, model save/load, pickle operations
+├── static/
+│   └── style.css              # CSS styling for web interface
+├── templates/
+│   ├── form.html              # Input form for customer data
+│   └── results.html           # Churn prediction results display
+├── .dockerignore              # Excludes unnecessary files from Docker image build
+├── .gitignore                 # Git exclusions: virtual environments, artifacts, credentials
+├── Dockerfile                 # Container image for production deployment
+├── ETL.py                     # ETL script: extracts churn data from source, loads to MongoDB
+├── README.md                  # Project documentation and setup instructions
+├── app.py                     # Flask application: /predict endpoint for churn prediction
+├── main.py                    # Training pipeline orchestrator: runs all 5 stages sequentially
+├── requirements.txt           # Python dependencies: scikit-learn, pandas, pymongo, Flask
+└── setup.py                   # Package installer: configures package for pip installation
 ```
 
 ---

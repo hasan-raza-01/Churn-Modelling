@@ -1,9 +1,9 @@
 name: CI/CD
 
-on:
-  push:
-    branches: [ main ]
-    paths-ignore: [ README.md ]
+# on:
+#   push:
+#     branches: [ main ]
+#     paths-ignore: [ README.md ]
 
 jobs:
   build-and-push:

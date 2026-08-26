@@ -64,7 +64,7 @@ class ClassifierModule(nn.Module):
         # Pass the input through each hidden layer block.
         for layer in self.hidden_layers:
             x = layer(x)       # Apply the linear transformation.
-            x = F.relu(x)      # Pass through ReLU activation to introduce non-linearity.
+            x = F.elu(x)      # Pass through ReLU activation to introduce non-linearity.
             x = self.dropout(x)  # Apply dropout to reduce overfitting.
         
         # Pass the result from the last hidden layer block into the output layer.

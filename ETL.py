@@ -1,7 +1,8 @@
 import pandas as pd 
 from dataclasses import dataclass 
 import boto3, sqlite3, os, yaml
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError 
+from churn_modelling.utils import use_cloud
 
 
 @dataclass 
@@ -16,6 +17,7 @@ class ETL:
     
     def create_database(self) -> None:
         con = sqlite3.connect(self.database_name)
+        os.environ["DB_FILE_PATH"]=self.database_name
         con.close()
         print(f"created database \'{self.database_name}\'")
 
@@ -99,8 +101,10 @@ class ETL:
         self.create_database()
         self.create_table(self.table_name, self.cols)
         self.insert_data(self.table_name, self.data)
-        self.push_to_cloud()
         self.save_schema()
+        
+        if use_cloud():
+            self.push_to_cloud()
 
 
 if __name__ == "__main__":

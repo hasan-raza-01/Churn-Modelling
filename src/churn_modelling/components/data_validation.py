@@ -50,7 +50,7 @@ class DataValidationComponents:
             # load schema 
             loaded_schema = load_yaml(self.data_validation_config.SCHEMA_FILE_PATH)
 
-            # generate fresh schema of data 
+            # calculate current schema of data 
             schema = dict()
             columns_with_dtype = dict()
             numerical_columns = list()

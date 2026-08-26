@@ -1,12 +1,11 @@
 from churn_modelling.entity import DataIngestion 
 from churn_modelling.exception import CustomException 
 from sklearn.model_selection import train_test_split 
-from churn_modelling.utils import create_dirs 
+from churn_modelling.utils import create_dirs, use_cloud
 from botocore.exceptions import ClientError
 from churn_modelling.logger import logging 
 from dataclasses import dataclass 
-import sys , sqlite3, boto3, os 
-from dotenv import load_dotenv 
+import sys , sqlite3, boto3, os
 import pandas as pd 
 
 
@@ -14,13 +13,11 @@ import pandas as pd
 @dataclass 
 class DataIngestionComponents:
     data_ingestion_config:DataIngestion 
+    database_path = None
     
     def data_collection(self):
         try:
             logging.info("In data_collection") 
-            # load .env 
-            load_status = load_dotenv(".env")
-            logging.info(f".env load status {{{load_status}}}")
             # download db file from s3
             try:
                 self.database_path = self.data_ingestion_config.DATABASE_FILE_PATH
@@ -45,6 +42,8 @@ class DataIngestionComponents:
             logging.info("In data_conversion") 
             
             self.table_name = self.data_ingestion_config.DATABASE_TABLE_NAME
+            if not self.database_path: 
+                self.database_path = self.data_ingestion_config.DATABASE_FILE_PATH
 
             # create connection with database
             logging.info(f'connecting with database at {{{self.database_path}}}') 
@@ -64,12 +63,11 @@ class DataIngestionComponents:
 
             # convert sql data into dataframe
             self.data = pd.DataFrame(data, columns=self.columns)
-            logging.info('successfully converted database fetched data into dataframe.')
+            logging.info('Dataframe conversion successfull.')
 
-            # commit and close connection 
-            connection.commit()
+            # close connection 
             connection.close()
-            logging.info('database connection commited and closed.')
+            logging.info('database connection closed.')
 
             logging.info("Out data_conversion") 
         except Exception as e:
@@ -122,7 +120,9 @@ class DataIngestionComponents:
         create_dirs(self.data_ingestion_config.FEATURE_STORE_ROOT_DIR_PATH)
         create_dirs(self.data_ingestion_config.INGESTED_ROOT_DIR_PATH)
 
-        self.data_collection()
+        if use_cloud():
+            self.data_collection()
+
         self.data_conversion()
         self.data_splitting()
         self.save_data()

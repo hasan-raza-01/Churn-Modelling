@@ -4,6 +4,7 @@ load_dotenv()
 import torch
 from dataclasses import dataclass 
 from sklearn.model_selection import GridSearchCV
+from skorch.callbacks import EarlyStopping, Checkpoint
 from churn_modelling.exception import CustomException 
 from churn_modelling.logger import logging 
 from sklearn.metrics import accuracy_score
@@ -14,9 +15,11 @@ import numpy as np
 import pandas as pd
 import sys, mlflow, os
 
+mlflow.bedrock.autolog(disable=True)
 
 # set mlflow tracking uri
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+if os.getenv("MLFLOW_TRACKING_URI"):
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
 
 @dataclass 
 class ModelTrainerComponents:
@@ -50,21 +53,29 @@ class ModelTrainerComponents:
         try:
             logging.info("In train_and_evaluate")
 
-            # Create a NeuralNetClassifier instance that wraps our PyTorch model.
+            # Create a NeuralNetClassifier instance that wraps PyTorch model.
             self.input_dim = self.X_train.shape[1]
-            net = get_NeuralNetClassifier(module__input_dim=self.input_dim)
+
+            # callbacks 
+            earlystopping_callback = EarlyStopping()
+            checkpoint_callback = Checkpoint()
+            callbacks=[
+                earlystopping_callback, 
+                checkpoint_callback
+            ]
+            net = get_NeuralNetClassifier(module__input_dim=self.input_dim, callbacks=callbacks)
 
             # load params from directory
             params_path = self.model_trainer_config.PARAMS_FILE_PATH
             params = load_json(params_path)
             logging.info(f"params loaded from {{{params_path}}}")
             params["optimizer"] = [torch.optim.SGD, torch.optim.Adam] 
-            logging.info(f"addition on params ---> params[\"optimizer\"] = [torch.optim.SGD, torch.optim.Adam]")
+            logging.info(f"addition on params ---> params[\"optimizer\"] = [torch.optim.SGD, torch.optim.Adam]") 
 
             # mlflow logging 
             with mlflow.start_run():
                 # grid search object 
-                self.grid = GridSearchCV(net, params, refit=True, cv=3, scoring='accuracy', n_jobs=-1)
+                self.grid = GridSearchCV(net, params, refit=True, cv=5, scoring='accuracy', n_jobs=-1)
 
                 # fit on grid
                 self.grid.fit(self.X_train.astype(np.float32), self.y_train.astype(np.int64))

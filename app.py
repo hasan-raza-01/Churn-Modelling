@@ -1,16 +1,20 @@
+from churn_modelling.logger import logging 
+from churn_modelling.utils import use_cloud
 from churn_modelling.configuration import ModelTrainerConfig, DataTransformationConfig
 from churn_modelling.pipeline.training_pipeline import TrainingPipeline
 from churn_modelling.pipeline.prediction_pipeline import PredictionPipeline
 from churn_modelling.utils.model.functions import get_NeuralNetClassifier
 from churn_modelling.utils import load_pickle, load_json 
-from churn_modelling.logger import logging 
 from dataclasses import dataclass 
 from datetime import datetime
 import pandas as pd 
 import numpy as np  
 import gradio as gr
+import subprocess
 import os 
+import dotenv
 
+logging.info(f".env load status {{{dotenv.load_dotenv()}}}")
 
 @dataclass 
 class App:
@@ -65,9 +69,16 @@ class App:
 
         # if path not available 
         if not os.path.exists(self.model_params_path):
-            os.system("dvc pull")
-            os.system("dvc repro")
-            os.system("dvc push")
+            subprocess.run(["dvc", "init"])
+            if use_cloud():
+                if not os.getenv("S3_BUCKET_DVC_STORE_OBJECT"):
+                    os.environ["S3_BUCKET_DVC_STORE_OBJECT"]=".dvc"
+                subprocess.run(["dvc", "remote", "add", "-d", "myremote", f"s3://{os.getenv("S3_BUCKET")}/{os.getenv("S3_BUCKET_DVC_STORE_OBJECT")}"])
+                subprocess.run(["dvc", "pull"])
+                subprocess.run(["dvc", "repro"])
+                subprocess.run(["dvc", "push"])
+            else: 
+                subprocess.run(["dvc", "repro"])
 
         # load model 
         self.load_model()

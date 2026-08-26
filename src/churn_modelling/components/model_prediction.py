@@ -1,4 +1,4 @@
-from churn_modelling.utils import dump_json, load_json, create_dirs
+from churn_modelling.utils import dump_json, load_json, create_dirs, use_cloud
 from churn_modelling.exception import CustomException 
 from churn_modelling.entity import ModelPrediction
 from sklearn.compose import ColumnTransformer
@@ -41,8 +41,9 @@ class ModelPredictionComponents:
             self.output_file_path = Path(os.path.join(dir_path, time_stamp + file_name))
             
             # load prevous predictions from cloud if not available in local 
-            if not os.path.exists(self.output_file_path):
-                self.pull_from_cloud()
+            if use_cloud():
+                if not os.path.exists(self.output_file_path):
+                    self.pull_from_cloud()
             
             output = {
                 time:{
@@ -103,7 +104,9 @@ class ModelPredictionComponents:
         self.data = data
         self.predict()
         self.save_outputs(time)
-        self.push_to_cloud()
+        
+        if use_cloud():
+            self.push_to_cloud()
 
         return self.prediction 
     

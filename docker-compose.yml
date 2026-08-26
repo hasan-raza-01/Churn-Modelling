@@ -2,23 +2,54 @@ services:
   mlflow-server:
     build:
       context: ./mlflow-server
-    image: churnmodelling.azurecr.io/mlflow-server:latest
+    networks: 
+      - app_network
+    # image: churnmodelling.azurecr.io/mlflow-server:latest
+    image: churnmodelling-mlflow-server:latest
+    environment: 
+      ALLOWED_HOSTS: "*"
     ports:
       - "5000:5000"
-    volumes:
-      - mlflow_db_data:/app/mlruns
+    # volumes:
+    #   - "database: /app/database"
+    #   - "schema: /app/schema"
+    #   - ".dvc: /app/.dvc"
+    #   - "logs: /app/logs"
+    #   - "artifacts: /app/artifacts"
+    #   - "predictions: /app/predictions"
+    #   - "mlruns: /app/mlruns"
+    #   - "mlflow.db: /app/mlflow.db"
 
   ml-app:
     build:
       context: .
       dockerfile: ml-app/Dockerfile
-    image: churnmodelling.azurecr.io/ml-app:latest
+    depends_on:
+      - mlflow-server
+    networks: 
+      - app_network
+    # image: churnmodelling.azurecr.io/ml-app:latest
+    image: churnmodelling-main:latest
     ports:
     - "7860:7860"
     env_file:
-      - /home/azureuser/.env
-    depends_on:
-      - mlflow-server
+      # - /home/azureuser/.env
+      - .env
+    environment:
+      MLFLOW_TRACKING_URI: "http://mlflow-server:5000"
+      GIT_PYTHON_REFRESH: "quiet"
 
-volumes:
-  mlflow_db_data:
+networks: 
+  app_network: 
+    driver: bridge
+
+# volumes:
+#   database:
+#   schema:
+#   .dvc: 
+#   logs: 
+#   artifacts:
+#   predictions: 
+#   mlruns: 
+#   mlflow.db: 
+

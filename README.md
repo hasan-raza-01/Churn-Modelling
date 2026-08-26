@@ -144,12 +144,13 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
   Store credentials and endpoints in a `.env` (referenced by `docker-compose.yml`):
 
   ```
+  # All are Optional
   S3_BUCKET=your_s3_bucket_name
   S3_BUCKET_OBJECT=your_s3_bucket_object[sqlite file storage object]
+  S3_BUCKET_DVC_STORE_OBJECT=your_s3_bucket_object_for_dvc_store[dvc store object]
   S3_BUCKET_PREDICTION_OBJECT=your_s3_bucket_object[predictions storage]
   S3_BUCKET_MLFLOW_DIR=your_s3_bucket_objet[to store mlflow experiments]
   MLFLOW_S3_ENDPOINT_URL="https://s3.amazonaws.com"
-  MLFLOW_TRACKING_URI="http://mlflow-server:5000"
   ```
   **GitHub Secrets Action**
   ```
@@ -163,7 +164,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 ## 🏃 Running Locally
 
-1. **Clone & Enter**
+1. **Clone the repo and enter the folder**
 
    ```bash
    git clone https://github.com/hasan-raza-01/Churn-Modelling.git
@@ -171,77 +172,57 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
    ```
 
 2. **Install Dependencies**
-  - ***Upgrade/Install pip and uv***
+  - **Install package manager uv by astral**
+    - Official documentation: https://docs.astral.sh/uv/getting-started/installation/
+
+  - **create virtual environment with dependencies**
     ```bash
-    pip install --upgrade pip uv
+    uv sync
     ```
-  - ***create virtual environment through uv***
-    ```bash
-    uv venv .venv --python 3.12
-    ```
-  - ***activate the environment***
-    - ***Command Prompt / PowerShell***
+  - **activate the environment**
+    - *windows*
       ```bash
       .venv\scripts\activate
       ```
-    - ***Git Bash***
+    - *linux*
+      ```bash
+      source .venv/bin/activate
       ```
-      source .venv/scripts/activate
-      ```
-  - ***Install required packages***
-    ```
-    uv pip install -e .
-    ```
 
 3. **Run app**
-   #### ***Run ETL[Extract Transform Load] Pipeline***
-   #### ***Note: Change variable named 'data_path' inside section [__name__ == "__main__"] of ETL.py with path/of/data/inside/your/local/system***
-    ```
+  * **Mannual**
+    - *Run ETL[Extract Transform Load] Pipeline*
+    ```bash
     uv run ETL.py
     ```
-  - **Docker**
-    - ***Environment Variable MLFLOW_TRACKING_URI***
-      ```
-      http://mlflow-server:5000
-      ```
-    - ***env file path [env_file] in docker-compose.yml*** 
-      - ***local machine dockerization*** 
-        ```
-        .env
-        ```
-      - ***Aws Cloud deployment*** 
-        #### ***path of env file created on server***
-        ```
-        /home/ubuntu/.env
-        ```
+    
+    - *Run core application* 
+    ```bash
+    uv run app.py
+    ```
+    
+    - *Run mlflow server*
+    ```bash 
+    mlflow server \
+    --backend-store-uri sqlite:///mlflow.db \
+    --default-artifact-root mlruns/ \
+    --host 0.0.0.0 \
+    --port 5000
+    ```
 
-    - ***build and run images***
-      #### ***Note: change 'projectsbucket01' & 'ChurnModelling-mlruns' from s3 bucket and path/of/s3object/to/store/.db/file respectively present inside CMD block of mlflow-server/Dockerfile***
-      ```bash
-      docker-compose up --build
-      ```
+  * **Docker**
 
-  - **Manuall**
-    - ***Environment Variable MLFLOW_TRACKING_URI***
-      #### ***Note: if not provided any Environment Variable named MLFLOW_TRACKING_URI, fine its default to below uri***
-      ```
-      http://localhost:5000
-      ```
-    - **MLflow Server Launch**
-      #### ***Before running the app, start the tracking server***
-      #### ***Note: change 'your-bucket' & 'path' from s3 bucket and path/of/s3object/to/store/.db/file respectively.***
-      ```bash
-      mlflow server \
-        --backend-store-uri sqlite:///mlruns/mlflow.db \
-        --default-artifact-root s3://<your-bucket>/<path>/ \
-        --host 0.0.0.0 \
-        --port 5000
-      ```
-    - **Run application**
-      #### ***Note: On first run It will take time for creation of artifacts***
-      ```
-      uv run app.py
-      ```
+    - *build images*
+    ```bash
+    docker-compose build --no-cache
+    ```
 
-4. **Visit the UI**
-   Open your browser to `http://localhost:7860` to train the model or predict churn in real time.
+    - *run images*
+    ```bash 
+    docker-compose up
+    ```
+4. **Navigation Url's to interact with servers**
+  - core application: http://127.0.0.1:7860
+  - mlflow server: http://127.0.0.1:5000
+
+---

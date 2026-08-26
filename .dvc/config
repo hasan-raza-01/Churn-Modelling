@@ -1,5 +1,0 @@
-[core]
-    remote = amazon_s3
-    autostage = true
-['remote "amazon_s3"']
-    url = s3://projectsbucket01/ChurnModelling-dvc-store

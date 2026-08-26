@@ -14,7 +14,7 @@ import sys
 
 @dataclass 
 class DataTransformationComponents:
-    data_validation_config:DataValidation
+    data_validation_config: DataValidation
     data_transformation_config: DataTransformation 
 
     def load_data(self):

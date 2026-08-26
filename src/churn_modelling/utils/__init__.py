@@ -137,3 +137,12 @@ def create_dirs(path) -> None:
     except Exception as e:
         raise CustomException(e, sys)
     
+def use_cloud(): 
+    import os 
+    env_vars = [
+        "S3_BUCKET",
+        "S3_BUCKET_OBJECT",
+        "S3_BUCKET_PREDICTION_OBJECT"
+    ]
+    return all([os.getenv(var) for var in env_vars])
+

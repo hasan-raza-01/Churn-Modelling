@@ -5,4 +5,5 @@ COPY . /app
 RUN pip install uv 
 RUN uv pip install --system -e .
 EXPOSE 7860  
-CMD ["uv", "run", "app.py"]
+RUN python ETL.py
+CMD ["python", "app.py"]

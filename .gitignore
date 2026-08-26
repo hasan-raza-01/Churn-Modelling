@@ -8,10 +8,13 @@ artifacts/
 database/
 mlruns/ 
 predictions/ 
-
+schema/
+.vscode/
+.dvc/
 
 # Files
 *.egg-info
 template.py
 .env
-
+mlflow.db
+dvc.lock

@@ -100,9 +100,9 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 
 5. **Real‑Time Gradio Interface**
 
-   * **Training Trigger**: “Run Training Pipeline” button invokes the full DVC→MLflow pipeline.
+   * **Training Trigger**: “Run Training Pipeline” button invokes full pipeline from data ingestion to model training.
    * **Churn Prediction**: Live inputs (customer age, balance, tenure, etc.) feed into the saved model via `predict_churn()`.
-   * **Deployment**: Exposed at `http://localhost:7860` by default, with a clean, user‑friendly UI.
+   * **Deployment**: Exposed at `http://127.0.0.1:7860` by default, with a clean, user‑friendly UI.
 
 ---
 

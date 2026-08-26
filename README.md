@@ -165,13 +165,18 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
 ## 🏃 Running Locally
 
 1. **Clone the repo and enter the folder**
-
    ```bash
    git clone https://github.com/hasan-raza-01/Churn-Modelling.git
    cd Churn-Modelling
    ```
 
-2. **Install Dependencies**
+2. **Set up environment variables**
+   ```bash
+   # Edit .env with your environment variables
+   cp .env.example .env
+   ```
+
+3. **Install Dependencies**
   - **Install package manager uv by astral**
     - Official documentation: https://docs.astral.sh/uv/getting-started/installation/
 
@@ -189,7 +194,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
       source .venv/bin/activate
       ```
 
-3. **Run app**
+4. **Run app**
   * **Mannual**
     - *Run ETL[Extract Transform Load] Pipeline*
     ```bash
@@ -221,7 +226,7 @@ An end‑to‑end, MLOps‑driven pipeline for automated customer churn predicti
     ```bash 
     docker-compose up
     ```
-4. **Navigation Url's to interact with servers**
+5. **Navigation Url's to interact with servers**
   - core application: http://127.0.0.1:7860
   - mlflow server: http://127.0.0.1:5000
 

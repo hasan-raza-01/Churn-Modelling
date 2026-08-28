@@ -4,7 +4,7 @@ load_dotenv()
 import torch
 from dataclasses import dataclass 
 from sklearn.model_selection import GridSearchCV
-from skorch.callbacks import EarlyStopping, Checkpoint
+from skorch.callbacks import EarlyStopping
 from churn_modelling.exception import CustomException 
 from churn_modelling.logger import logging 
 from sklearn.metrics import accuracy_score
@@ -13,7 +13,7 @@ from churn_modelling.entity import DataTransformation, ModelTrainer
 from churn_modelling.utils.model.functions import get_NeuralNetClassifier 
 import numpy as np
 import pandas as pd
-import sys, mlflow, os
+import sys, mlflow, os, time
 
 mlflow.bedrock.autolog(disable=True)
 
@@ -57,12 +57,11 @@ class ModelTrainerComponents:
             self.input_dim = self.X_train.shape[1]
 
             # callbacks 
-            earlystopping_callback = EarlyStopping()
-            checkpoint_callback = Checkpoint()
+            earlystopping = EarlyStopping()
             callbacks=[
-                earlystopping_callback, 
-                checkpoint_callback
+                earlystopping, 
             ]
+
             net = get_NeuralNetClassifier(module__input_dim=self.input_dim, callbacks=callbacks)
 
             # load params from directory
@@ -75,10 +74,15 @@ class ModelTrainerComponents:
             # mlflow logging 
             with mlflow.start_run():
                 # grid search object 
-                self.grid = GridSearchCV(net, params, refit=True, cv=5, scoring='accuracy', n_jobs=-1)
+                self.grid = GridSearchCV(net, params, refit=True, cv=7, scoring='accuracy', n_jobs=-1, verbose=1)
 
                 # fit on grid
+                start = time.time()
                 self.grid.fit(self.X_train.astype(np.float32), self.y_train.astype(np.int64))
+                training_time = (time.time() - start)
+                logging.info(f"training time in sec - {training_time} sec")
+                logging.info(f"training time in min - {training_time/60} min")
+                logging.info(f"training time in hours - {training_time/(60*60)} hours")
                 logging.info(f"best Score on grid search:{self.grid.best_score_}")
 
             logging.info("Out train_and_evaluate")

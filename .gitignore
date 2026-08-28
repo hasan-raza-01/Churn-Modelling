@@ -10,11 +10,10 @@ mlruns/
 predictions/ 
 schema/
 .vscode/
-.dvc/
+.checkpoints/
 
 # Files
 *.egg-info
 template.py
 .env
 mlflow.db
-dvc.lock

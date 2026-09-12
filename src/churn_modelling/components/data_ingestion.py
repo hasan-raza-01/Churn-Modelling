@@ -79,7 +79,7 @@ class DataIngestionComponents:
             logging.info("In data_splitting") 
             
             # split the data into train and test 
-            train_data_array, test_data_array = train_test_split(self.data, test_size=0.33, random_state=42)
+            train_data_array, test_data_array = train_test_split(self.data, test_size=0.2, random_state=42)
             self.train_data = pd.DataFrame(train_data_array, columns=self.columns)
             self.test_data = pd.DataFrame(test_data_array, columns=self.columns)
 
